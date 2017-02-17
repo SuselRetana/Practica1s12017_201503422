@@ -25,8 +25,7 @@ public class Lista_Simple {
     public void insertar(String valor){
         Nodo_Lista_Simple nuevo = new Nodo_Lista_Simple();
         nuevo.setValor(valor);
-        
-        if(esVacia()){
+         if(esVacia()){
             inicio=nuevo;
         }else{
             Nodo_Lista_Simple aux = inicio;
@@ -64,5 +63,19 @@ public class Lista_Simple {
             }
         }
     }
-
+    public void eliminarElemento(String referencia){
+        if(buscar(referencia)){
+            if(inicio.getValor()==referencia){
+                inicio=inicio.getSiguiente();
+            }else{
+                Nodo_Lista_Simple aux = inicio;
+            while(aux.getSiguiente().getValor()!=referencia){
+                aux=aux.getSiguiente();
+            }
+            Nodo_Lista_Simple siguiente = aux.getSiguiente().getSiguiente();
+            aux.setSiguiente(siguiente);
+            }
+            tamaño--;
+        }
+    }
 }
