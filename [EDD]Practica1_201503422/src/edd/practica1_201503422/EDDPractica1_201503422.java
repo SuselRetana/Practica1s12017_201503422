@@ -17,6 +17,35 @@ public class EDDPractica1_201503422 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+            /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Inicio().setVisible(true);
+            }
+        });
 //        Lista_Simple listaS1 = new Lista_Simple();
 //        listaS1.insertar("1L1");
 //        listaS1.insertar("1L2");               
@@ -34,16 +63,16 @@ public class EDDPractica1_201503422 {
 //        lista.insertar("prueba2",listaS2);
 //        lista.insertar("prueba3",listaS3);
 //        lista.imprimir();
-        Cola cola1=new Cola();
-        cola1.offer("prueba1");
-        cola1.offer("prueba2");
-        cola1.offer("prueba3");
-        cola1.imprimir();
-        System.out.println("Extraemos elemento de la cola:  "+cola1.peek());
-        cola1.imprimir(); 
-        System.out.println("Insertamos");
-        cola1.offer("prueba1");
-        cola1.imprimir(); 
+//        Cola cola1=new Cola();
+//        cola1.offer("prueba1");
+//        cola1.offer("prueba2");
+//        cola1.offer("prueba3");
+//        cola1.imprimir();
+//        System.out.println("Extraemos elemento de la cola:  "+cola1.peek());
+//        cola1.imprimir(); 
+//        System.out.println("Insertamos");
+//        cola1.offer("prueba1");
+//        cola1.imprimir(); 
     }
     
 }
