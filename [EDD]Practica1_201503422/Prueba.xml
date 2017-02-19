@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+    <scrabble>
+        <dimension>20</dimension>
+        <dobles>
+            <casilla>
+                <x>2</x>
+                <y>5</y>                
+            </casilla>
+            <casilla>
+                <x>7</x>
+                <y>9</y>                
+            </casilla>
+        </dobles>
+        <triples>
+            <casilla>
+                <x>2</x>
+                <y>5</y>                
+            </casilla>
+            <casilla>
+                <x>20</x>
+                <y>20</y>                
+            </casilla>
+            <casilla>
+                <x>1</x>
+                <y>1</y>                
+            </casilla>
+        </triples>
+        <diccionario>
+            <palabra>hola</palabra>
+            <palabra>mundo</palabra>
+            <palabra>como</palabra>
+            <palabra>estas</palabra>
+            <palabra>uno</palabra>
+            <palabra>dos</palabra>
+            <palabra>tres</palabra>
+            <palabra>universidad</palabra>
+            <palabra>practica</palabra>
+            <palabra>primera</palabra>
+            <palabra>correo</palabra>
+            <palabra>juego</palabra>
+        </diccionario>        
+    </scrabble>   
