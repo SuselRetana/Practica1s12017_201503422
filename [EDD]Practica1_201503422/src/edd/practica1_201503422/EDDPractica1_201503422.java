@@ -11,13 +11,10 @@ import Listas.*;
  *
  * @author freni_000
  */
-public class EDDPractica1_201503422 {
-
-    /**
-     * @param args the command line arguments
-     */
+public class EDDPractica1_201503422 {  
     
       public static void main(String args[]) {
+      
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -50,7 +47,10 @@ public class EDDPractica1_201503422 {
     }
     
 /*    public static void main(String[] args) {
-        
+          Matriz_Ortogonal m = new Matriz_Ortogonal();
+          m.insertar(5);
+      
+      
         Lista_Simple listaS1 = new Lista_Simple();
         listaS1.insertar("1L1");
         listaS1.insertar("1L2");               
