@@ -58,5 +58,20 @@ public class Lista_Circular {
             }while(aux != inicio);
         }
     }
+      public boolean buscar(String referencia){
+          boolean encontrado = false;
+           Nodo_Lista_Circular aux = inicio;
+           if(aux!=null){           
+          do{
+              if(aux.getValor().equalsIgnoreCase(referencia)){
+                    encontrado=true;
+                    aux=inicio;
+              }else{
+                    aux=aux.getSiguiente();
+               }
+          }while(aux!=inicio);
+           }
+          return encontrado;
+      }
 
 }

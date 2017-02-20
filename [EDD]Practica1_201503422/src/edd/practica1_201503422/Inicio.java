@@ -7,6 +7,7 @@ package edd.practica1_201503422;
 
 import Listas.*;
 import java.awt.Component;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -43,7 +44,7 @@ public class Inicio extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         arch = new javax.swing.JTextPane();
-        jButton2 = new javax.swing.JButton();
+        Iniciar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -58,11 +59,12 @@ public class Inicio extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(arch);
 
-        jButton2.setFont(new java.awt.Font("Tempus Sans ITC", 1, 14)); // NOI18N
-        jButton2.setText("Aceptar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        Iniciar.setFont(new java.awt.Font("Tempus Sans ITC", 1, 14)); // NOI18N
+        Iniciar.setText("Aceptar");
+        Iniciar.setEnabled(false);
+        Iniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                IniciarActionPerformed(evt);
             }
         });
 
@@ -79,7 +81,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(61, 61, 61)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(72, 72, 72))
             .addGroup(layout.createSequentialGroup()
                 .addGap(53, 53, 53)
@@ -95,7 +97,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(Iniciar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -103,20 +105,21 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // create a filechooser;
+         // create a filechooser;
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter xmlfilter = new FileNameExtensionFilter("xml files (*.xml)", "xml");
         chooser.setDialogTitle("Open schedule file");
         // set selected filter
         chooser.setFileFilter(xmlfilter);
+        chooser.setFileSelectionMode(0);          
         int returnVal = chooser.showOpenDialog(this);
+        File archivo = chooser.getSelectedFile();
         if(returnVal == JFileChooser.APPROVE_OPTION) {
-            System.out.println("You chose to open this file: " +
-                    chooser.getSelectedFile().getName());       
-            arch.setText(chooser.getSelectedFile().getPath());
+            arch.setText(archivo.getAbsolutePath());
             XML arch = new XML();
             try {
-                arch.abrirArchivo(chooser.getSelectedFile().getName());
+                arch.abrirArchivo(archivo.getAbsolutePath());
+                Iniciar.setEnabled(true);
             } catch (IOException ex) {
                 Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -124,7 +127,7 @@ public class Inicio extends javax.swing.JFrame {
                 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarActionPerformed
         listadoLetras();    
         LetrasJuego(letras);
         
@@ -161,8 +164,37 @@ public class Inicio extends javax.swing.JFrame {
              showMessageDialog(null, "Ah llegado al Máximo de Jugadores", " Total Jugadores :" + contJugadores, PLAIN_MESSAGE);          
         }
         jugadores.imprimir();
+        this.setVisible(false);
+          /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Tablero().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_IniciarActionPerformed
  private void listadoLetras()
     {
         letras = new ArrayList();
@@ -225,9 +257,9 @@ public class Inicio extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Iniciar;
     private javax.swing.JTextPane arch;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

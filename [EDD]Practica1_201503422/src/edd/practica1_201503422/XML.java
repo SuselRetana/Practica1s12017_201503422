@@ -64,6 +64,7 @@ public class XML {
             }
             
             diccionario = new Lista_Simple();
+            System.out.println("Diccionario: ");
               //Palabras diccionarios
             Element diccionario = raiz.getChild("diccionario");
             List Palabras = diccionario.getChildren();
