@@ -19,15 +19,18 @@ public class Lista_Circular {
         ultimo = null;
         tamaño = 0;
     } 
+    public Nodo_Lista_Circular getInicio(){
+        return inicio;
+    }
     public boolean esVacia(){
         return inicio==null;
     }
     public int getTamaño(){
         return tamaño;
     }
-    public void insertar(String valor,  Lista_Simple lista){
+    public void insertar(String valor,  Lista_Simple lista, int punteo){
          Nodo_Lista_Circular nuevo = new Nodo_Lista_Circular();     
-         nuevo.setValor(valor,lista);
+         nuevo.setValor(valor,lista,punteo);
         if(esVacia()){
            inicio=nuevo;
            ultimo=nuevo;

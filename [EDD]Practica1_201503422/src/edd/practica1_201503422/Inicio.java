@@ -22,9 +22,9 @@ import javax.swing.filechooser.*;
  * @author freni_000
  */
 public class Inicio extends javax.swing.JFrame {
-    public  Lista_Circular jugadores;
-    public Cola Abecedario ;
-    public ArrayList letras;
+    public static  Lista_Circular jugadores =new Lista_Circular();
+    public static Cola Abecedario =new Cola();
+    public static ArrayList letras;
     /**
      * Creates new form Inicio
      */
@@ -131,7 +131,6 @@ public class Inicio extends javax.swing.JFrame {
         listadoLetras();    
         LetrasJuego(letras);
         
-        jugadores=new Lista_Circular();
         String textomsg ="Ingrese Nombre del Jugador";
         boolean ingresar = true;
         int contJugadores =1;
@@ -150,7 +149,7 @@ public class Inicio extends javax.swing.JFrame {
             for(int n = 0; n<7;n++){
                 mano.insertar(Abecedario.peek());
             }
-            jugadores.insertar(code, mano);   
+            jugadores.insertar(code, mano,0);   
             contJugadores++;
             textomsg ="Ingrese Nombre del Jugador";
             }else{
@@ -165,6 +164,8 @@ public class Inicio extends javax.swing.JFrame {
         }
         jugadores.imprimir();
         this.setVisible(false);
+        Tablero t = new Tablero();
+        t.enviarJugadores(jugadores, Abecedario);
           /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -191,7 +192,7 @@ public class Inicio extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Tablero().setVisible(true);
+              t.setVisible(true);
             }
         });
     }//GEN-LAST:event_IniciarActionPerformed
@@ -244,7 +245,6 @@ public class Inicio extends javax.swing.JFrame {
     }
     private void LetrasJuego(ArrayList letras)
     {
-        Abecedario=new Cola();
         int rnd;
         for(int i=0 ;i<letras.size();i++)
         {

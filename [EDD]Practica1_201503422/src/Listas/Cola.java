@@ -15,11 +15,16 @@ public class Cola {
         Nodo siguiente;
     }
     private Nodo cabeza, fin;
+    private int tamaño=0;
     public Cola(){
         this.cabeza=this.fin=null;
+        this.tamaño=0;
     }
     public boolean esVacia(){
         return cabeza==null;
+    }
+    public int tamaño(){
+        return tamaño;
     }
     public void offer(String valor){
         Nodo nuevo = new Nodo();
@@ -32,6 +37,7 @@ public class Cola {
             fin.siguiente=nuevo;
             fin=nuevo;
         }
+        tamaño++;
     }
     public String peek(){
         if(!esVacia()){
@@ -42,7 +48,8 @@ public class Cola {
             }else{
                 cabeza=cabeza.siguiente;
             }
-            return valor;
+             tamaño--;
+            return valor;            
         }else{
             return "cola vacia";
         }

@@ -5,19 +5,75 @@
  */
 package edd.practica1_201503422;
 
+import Listas.*;
+import javax.swing.table.TableColumn;
+
 /**
  *
  * @author freni_000
  */
 public class Tablero extends javax.swing.JFrame {
-
+    public static Nodo_Lista_Circular jugadorInicial = new Nodo_Lista_Circular();
+    public static Nodo_Lista_Simple jugadorFichas = new Nodo_Lista_Simple();
+    public static Lista_Circular jugadores = new Lista_Circular();
+    public static Cola Fichas = new Cola();
+    public static Lista_Simple casillas = new Lista_Simple();
+    public static Lista_Simple diccionario = new Lista_Simple();
+    public static int dim=0;
+    public static Matriz_Ortogonal tab = new Matriz_Ortogonal();
+    
     /**
      * Creates new form Tablero
      */
-    public Tablero() {
+    public Tablero() {             
         initComponents();
+      
     }
-
+    public void enviarListaSimple(Lista_Simple casillas, Lista_Simple diccionario , int dim){
+        this.casillas=casillas;
+        this.diccionario=diccionario;
+        this.dim=dim;
+    }
+    
+    public void enviarJugadores(Lista_Circular jugadores, Cola fichas ){
+        this.jugadores=jugadores;
+        this.Fichas=fichas;
+          jugadorInicial = jugadores.getInicio();
+          Jugador.setText(jugadorInicial.getValor());  
+          actualizar();
+    }
+    public void  actualizar(){
+     jugadorFichas=jugadorInicial.getLetras().getInicio();
+          L1.setText(jugadorFichas.getValor());
+          C1.setText(jugadorFichas.getValor());
+          jugadorFichas = jugadorFichas.getSiguiente();          
+          L2.setText(jugadorFichas.getValor());
+          C2.setText(jugadorFichas.getValor());
+          jugadorFichas = jugadorFichas.getSiguiente();          
+          L3.setText(jugadorFichas.getValor());
+          C3.setText(jugadorFichas.getValor());
+          jugadorFichas = jugadorFichas.getSiguiente();                    
+          L4.setText(jugadorFichas.getValor());
+          C4.setText(jugadorFichas.getValor());
+          jugadorFichas = jugadorFichas.getSiguiente();
+          L5.setText(jugadorFichas.getValor());
+          C5.setText(jugadorFichas.getValor());
+          jugadorFichas = jugadorFichas.getSiguiente();
+          L6.setText(jugadorFichas.getValor());
+          C6.setText(jugadorFichas.getValor());
+          jugadorFichas = jugadorFichas.getSiguiente();
+          L7.setText(jugadorFichas.getValor());          
+          C7.setText(jugadorFichas.getValor());       
+          
+          int pos=0;          
+          Nodo_Lista_Circular aux = jugadores.getInicio();
+            do{          
+            puntajes.setValueAt(aux.getValor(),pos,0);
+            puntajes.setValueAt(aux.getPunteo(),pos,1);
+            aux=aux.getSiguiente();
+            pos++;
+          }while(aux!=jugadorInicial);            
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,7 +92,7 @@ public class Tablero extends javax.swing.JFrame {
         L5 = new javax.swing.JToggleButton();
         L7 = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        puntajes = new javax.swing.JTable();
         Jugador = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
@@ -45,6 +101,21 @@ public class Tablero extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         L4 = new javax.swing.JToggleButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        PalabraNew = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        C1 = new javax.swing.JCheckBox();
+        C2 = new javax.swing.JCheckBox();
+        C3 = new javax.swing.JCheckBox();
+        C4 = new javax.swing.JCheckBox();
+        C5 = new javax.swing.JCheckBox();
+        C6 = new javax.swing.JCheckBox();
+        C7 = new javax.swing.JCheckBox();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -55,7 +126,7 @@ public class Tablero extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(null);
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(10, 34, 661, 490);
+        jPanel1.setBounds(10, 34, 650, 490);
 
         L2.setBackground(new java.awt.Color(255, 255, 204));
         L2.setFont(new java.awt.Font("Lucida Handwriting", 1, 18)); // NOI18N
@@ -63,7 +134,7 @@ public class Tablero extends javax.swing.JFrame {
         L2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         L2.setLabel("A");
         getContentPane().add(L2);
-        L2.setBounds(150, 530, 59, 44);
+        L2.setBounds(110, 530, 59, 44);
 
         L1.setBackground(new java.awt.Color(255, 255, 204));
         L1.setFont(new java.awt.Font("Lucida Handwriting", 1, 18)); // NOI18N
@@ -71,7 +142,7 @@ public class Tablero extends javax.swing.JFrame {
         L1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         L1.setLabel("A");
         getContentPane().add(L1);
-        L1.setBounds(80, 530, 59, 44);
+        L1.setBounds(40, 530, 59, 44);
 
         L3.setBackground(new java.awt.Color(255, 255, 204));
         L3.setFont(new java.awt.Font("Lucida Handwriting", 1, 18)); // NOI18N
@@ -79,7 +150,7 @@ public class Tablero extends javax.swing.JFrame {
         L3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         L3.setLabel("A");
         getContentPane().add(L3);
-        L3.setBounds(230, 530, 59, 44);
+        L3.setBounds(190, 530, 59, 44);
 
         L6.setBackground(new java.awt.Color(255, 255, 204));
         L6.setFont(new java.awt.Font("Lucida Handwriting", 1, 18)); // NOI18N
@@ -87,7 +158,7 @@ public class Tablero extends javax.swing.JFrame {
         L6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         L6.setLabel("A");
         getContentPane().add(L6);
-        L6.setBounds(460, 530, 59, 44);
+        L6.setBounds(420, 530, 59, 44);
 
         L5.setBackground(new java.awt.Color(255, 255, 204));
         L5.setFont(new java.awt.Font("Lucida Handwriting", 1, 18)); // NOI18N
@@ -95,7 +166,7 @@ public class Tablero extends javax.swing.JFrame {
         L5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         L5.setLabel("A");
         getContentPane().add(L5);
-        L5.setBounds(380, 530, 59, 44);
+        L5.setBounds(340, 530, 59, 44);
 
         L7.setBackground(new java.awt.Color(255, 255, 204));
         L7.setFont(new java.awt.Font("Lucida Handwriting", 1, 18)); // NOI18N
@@ -103,10 +174,10 @@ public class Tablero extends javax.swing.JFrame {
         L7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         L7.setLabel("A");
         getContentPane().add(L7);
-        L7.setBounds(540, 530, 59, 44);
+        L7.setBounds(500, 530, 59, 44);
 
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        puntajes.setAutoCreateRowSorter(true);
+        puntajes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -123,10 +194,10 @@ public class Tablero extends javax.swing.JFrame {
                 "Jugador", "Punteo"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(puntajes);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(680, 40, 170, 190);
+        jScrollPane1.setBounds(670, 40, 170, 190);
 
         Jugador.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
         Jugador.setText("Jugador");
@@ -207,10 +278,173 @@ public class Tablero extends javax.swing.JFrame {
         L4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         L4.setLabel("A");
         getContentPane().add(L4);
-        L4.setBounds(300, 530, 59, 44);
+        L4.setBounds(260, 530, 59, 44);
+
+        jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        getContentPane().add(jSeparator1);
+        jSeparator1.setBounds(850, 30, 2, 530);
+
+        jLabel1.setFont(new java.awt.Font("Segoe Print", 3, 18)); // NOI18N
+        jLabel1.setText("Cambiar Letras");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(670, 380, 150, 33);
+        jLabel1.getAccessibleContext().setAccessibleName("");
+
+        PalabraNew.setFont(new java.awt.Font("Tempus Sans ITC", 1, 14)); // NOI18N
+        getContentPane().add(PalabraNew);
+        PalabraNew.setBounds(670, 280, 160, 25);
+
+        jButton1.setBackground(new java.awt.Color(204, 255, 204));
+        jButton1.setFont(new java.awt.Font("Book Antiqua", 1, 18)); // NOI18N
+        jButton1.setText("Cancelar");
+        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(jButton1);
+        jButton1.setBounds(580, 580, 110, 31);
+
+        jLabel2.setFont(new java.awt.Font("Segoe Print", 3, 18)); // NOI18N
+        jLabel2.setText("Nueva Palabra");
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(680, 250, 150, 33);
+
+        C1.setText("A");
+        getContentPane().add(C1);
+        C1.setBounds(670, 420, 33, 23);
+
+        C2.setText("B");
+        getContentPane().add(C2);
+        C2.setBounds(670, 450, 31, 23);
+
+        C3.setText("C");
+        getContentPane().add(C3);
+        C3.setBounds(670, 480, 33, 23);
+
+        C4.setText("D");
+        getContentPane().add(C4);
+        C4.setBounds(720, 420, 33, 23);
+
+        C5.setText("E");
+        getContentPane().add(C5);
+        C5.setBounds(720, 450, 31, 23);
+
+        C6.setText("F");
+        getContentPane().add(C6);
+        C6.setBounds(720, 480, 31, 23);
+
+        C7.setText("G");
+        C7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                C7ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(C7);
+        C7.setBounds(770, 420, 33, 23);
+
+        jButton2.setBackground(new java.awt.Color(204, 255, 204));
+        jButton2.setFont(new java.awt.Font("Book Antiqua", 1, 18)); // NOI18N
+        jButton2.setText("Agregar");
+        jButton2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(690, 320, 110, 31);
+
+        jButton3.setBackground(new java.awt.Color(204, 255, 204));
+        jButton3.setFont(new java.awt.Font("Book Antiqua", 1, 12)); // NOI18N
+        jButton3.setText("Cambiar");
+        jButton3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3);
+        jButton3.setBounds(770, 470, 70, 31);
+
+        jButton4.setBackground(new java.awt.Color(204, 255, 204));
+        jButton4.setFont(new java.awt.Font("Book Antiqua", 1, 18)); // NOI18N
+        jButton4.setText("Validar");
+        jButton4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton4);
+        jButton4.setBounds(580, 540, 110, 31);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void C7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_C7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_C7ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        jugadorInicial = jugadorInicial.getSiguiente();
+        Jugador.setText(jugadorInicial.getValor());    
+        actualizar();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        diccionario.insertar(PalabraNew.getText());
+        diccionario.imprimir();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if(C1.isSelected()){
+        Fichas.offer(C1.getText());
+        jugadorInicial.getLetras().eliminarElemento(C1.getText());
+        jugadorInicial.getLetras().insertar(Fichas.peek());
+        C1.setSelected(false);
+        }                
+        if(C2.isSelected()){
+        Fichas.offer(C2.getText());
+        jugadorInicial.getLetras().eliminarElemento(C2.getText());
+        jugadorInicial.getLetras().insertar(Fichas.peek());
+        C2.setSelected(false);
+        }
+        if(C3.isSelected()){
+        Fichas.offer(C3.getText());
+        jugadorInicial.getLetras().eliminarElemento(C3.getText());
+        jugadorInicial.getLetras().insertar(Fichas.peek());
+        C3.setSelected(false);
+        }
+        if(C4.isSelected()){
+        Fichas.offer(C4.getText());
+        jugadorInicial.getLetras().eliminarElemento(C4.getText());
+        jugadorInicial.getLetras().insertar(Fichas.peek());
+        C4.setSelected(false);
+        }
+        if(C5.isSelected()){
+        Fichas.offer(C5.getText());
+        jugadorInicial.getLetras().eliminarElemento(C5.getText());
+        jugadorInicial.getLetras().insertar(Fichas.peek());
+        C5.setSelected(false);
+        }
+        if(C6.isSelected()){
+        Fichas.offer(C1.getText());
+        jugadorInicial.getLetras().eliminarElemento(C6.getText());
+        jugadorInicial.getLetras().insertar(Fichas.peek());
+        C6.setSelected(false);
+        }
+        if(C7.isSelected()){
+        Fichas.offer(C7.getText());
+        jugadorInicial.getLetras().eliminarElemento(C7.getText());
+        jugadorInicial.getLetras().insertar(Fichas.peek());
+        C7.setSelected(false);
+        }
+        actualizar();
+        System.out.println("_"+Fichas.tamaño()+"_");
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,6 +452,13 @@ public class Tablero extends javax.swing.JFrame {
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox C1;
+    private javax.swing.JCheckBox C2;
+    private javax.swing.JCheckBox C3;
+    private javax.swing.JCheckBox C4;
+    private javax.swing.JCheckBox C5;
+    private javax.swing.JCheckBox C6;
+    private javax.swing.JCheckBox C7;
     private javax.swing.JLabel Jugador;
     private javax.swing.JToggleButton L1;
     private javax.swing.JToggleButton L2;
@@ -226,6 +467,13 @@ public class Tablero extends javax.swing.JFrame {
     private javax.swing.JToggleButton L5;
     private javax.swing.JToggleButton L6;
     private javax.swing.JToggleButton L7;
+    private javax.swing.JTextField PalabraNew;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -234,7 +482,8 @@ public class Tablero extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable puntajes;
     // End of variables declaration//GEN-END:variables
 }

@@ -73,10 +73,10 @@ public class XML {
             Element Palabra = (Element)Palabras.get(i);
             String palabra = Palabra.getTextTrim();
             this.diccionario.insertar(palabra);
-            System.out.println(palabra);
-            
+            System.out.println(palabra);                    
             //AGREGO LAS PALABRAS A LA LISTA SIMPLE
             }
+            new Tablero().enviarListaSimple(this.casillas, this.diccionario, this.dimension);
         }catch ( IOException io ) {
             System.out.println( io.getMessage() );
         }catch ( JDOMException jdomex ) {

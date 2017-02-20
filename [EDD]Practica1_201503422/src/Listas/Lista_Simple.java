@@ -16,6 +16,9 @@ public class Lista_Simple {
         inicio=null;
         tamaño=0;    
     }
+     public Nodo_Lista_Simple getInicio(){
+        return inicio;
+    }
     public boolean esVacia(){
         return inicio==null;
     }
