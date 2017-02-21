@@ -164,6 +164,7 @@ public class Inicio extends javax.swing.JFrame {
         }
         jugadores.imprimir();
         this.setVisible(false);
+        new Reportes().Jugadores(jugadores);
         Tablero t = new Tablero();
         t.enviarJugadores(jugadores, Abecedario);
           /* Set the Nimbus look and feel */

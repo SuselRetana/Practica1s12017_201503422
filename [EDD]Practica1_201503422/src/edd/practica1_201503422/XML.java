@@ -74,8 +74,8 @@ public class XML {
             String palabra = Palabra.getTextTrim();
             this.diccionario.insertar(palabra);
             System.out.println(palabra);                    
-            //AGREGO LAS PALABRAS A LA LISTA SIMPLE
             }
+            new Reportes().diccionario(this.diccionario);
             new Tablero().enviarListaSimple(this.casillas, this.diccionario, this.dimension);
         }catch ( IOException io ) {
             System.out.println( io.getMessage() );

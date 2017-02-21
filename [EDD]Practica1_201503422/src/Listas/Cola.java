@@ -10,15 +10,22 @@ package Listas;
  * @author freni_000
  */
 public class Cola {
-    class Nodo{
-        String valor;
-        Nodo siguiente;
+    public class Nodo{
+        public String valor;
+       public Nodo siguiente;
     }
     private Nodo cabeza, fin;
     private int tamaño=0;
+    
     public Cola(){
         this.cabeza=this.fin=null;
         this.tamaño=0;
+    }
+    public Nodo getCabeza(){
+    return cabeza;
+    }
+    public Nodo getSiguiente(){
+    return cabeza.siguiente;
     }
     public boolean esVacia(){
         return cabeza==null;
@@ -51,7 +58,7 @@ public class Cola {
              tamaño--;
             return valor;            
         }else{
-            return "cola vacia";
+            return null;
         }
     }
     public void imprimir(){

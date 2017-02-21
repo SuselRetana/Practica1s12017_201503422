@@ -72,7 +72,10 @@ public class Tablero extends javax.swing.JFrame {
             puntajes.setValueAt(aux.getPunteo(),pos,1);
             aux=aux.getSiguiente();
             pos++;
-          }while(aux!=jugadorInicial);            
+          }while(aux!=jugadorInicial);     
+            Reportes r =new Reportes();
+            r.Mano(jugadorInicial.getLetras(), jugadorInicial.getValor());
+            r.TotalFichas(Fichas);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -391,6 +394,7 @@ public class Tablero extends javax.swing.JFrame {
         jugadorInicial = jugadorInicial.getSiguiente();
         Jugador.setText(jugadorInicial.getValor());    
         actualizar();
+                
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
