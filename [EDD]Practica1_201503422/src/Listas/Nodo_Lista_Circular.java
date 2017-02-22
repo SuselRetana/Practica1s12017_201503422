@@ -32,6 +32,9 @@ public class Nodo_Lista_Circular {
         this.listaLetras=letras;
         this.punteo=punteo;        
     }
+     public void setPunteo(int punteo){      
+        this.punteo=punteo;        
+    }
     public Nodo_Lista_Circular getSiguiente(){
         return siguiente;
     }

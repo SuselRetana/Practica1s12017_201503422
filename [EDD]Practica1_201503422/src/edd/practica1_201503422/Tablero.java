@@ -7,6 +7,7 @@ package edd.practica1_201503422;
 
 import Listas.*;
 import java.awt.Image;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.table.TableColumn;
 
@@ -17,11 +18,15 @@ import javax.swing.table.TableColumn;
 public class Tablero extends javax.swing.JFrame {
     public static Nodo_Lista_Circular jugadorInicial = new Nodo_Lista_Circular();
     public static Nodo_Lista_Simple jugadorFichas = new Nodo_Lista_Simple();
+    public static Nodo_Lista_Simple casillaJuego = new Nodo_Lista_Simple();
     public static Lista_Circular jugadores = new Lista_Circular();
     public static Cola Fichas = new Cola();
-    public static Lista_Simple casillas = new Lista_Simple();
+    public static Lista_Simple casillasDobles = new Lista_Simple();
+    public static Lista_Simple casillasTriples = new Lista_Simple();
     public static Lista_Simple diccionario = new Lista_Simple();
+    public static Lista_Simple casillasJuego = new Lista_Simple();
     public static int dim=0;
+    public static int punteo=0;
     public static int x_b=0;
     public static int y_b=0;
     public static Matriz_Ortogonal tab = new Matriz_Ortogonal();
@@ -35,6 +40,14 @@ public class Tablero extends javax.swing.JFrame {
         while (aux!=null){
           while (aux.getDerecha()!=null){
               tablero.add(aux.getCasilla());
+              if(casillasDobles.buscar(aux.getX()+","+aux.getY())){
+                  aux.setValor(2);
+              }
+              else if(casillasTriples.buscar(aux.getX()+","+aux.getY())){
+                  aux.setValor(3);              
+              } else{
+                  aux.setValor(1);
+              }
               aux = aux.getDerecha();
         }   
             tablero.add(aux.getCasilla());            
@@ -43,8 +56,9 @@ public class Tablero extends javax.swing.JFrame {
     }
         }        
     }
-    public void enviarListaSimple(Lista_Simple casillas, Lista_Simple diccionario , int dim){
-        this.casillas=casillas;
+    public void enviarListaSimple(Lista_Simple casillasTriples,Lista_Simple casillasDobles, Lista_Simple diccionario , int dim){
+        this.casillasDobles=casillasDobles;
+        this.casillasTriples=casillasTriples;
         this.diccionario=diccionario;
         this.dim=dim;
     }
@@ -371,6 +385,11 @@ public class Tablero extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Book Antiqua", 1, 18)); // NOI18N
         jButton1.setText("Cancelar");
         jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1);
         jButton1.setBounds(710, 590, 110, 31);
 
@@ -453,13 +472,26 @@ public class Tablero extends javax.swing.JFrame {
         tablero.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         tablero.setLayout(null);
         getContentPane().add(tablero);
-        tablero.setBounds(10, 4, 900, 540);
+        tablero.setBounds(0, 4, 900, 540);
 
-        movL1.setText("jLabel3");
+        movL1.setText("  ");
+        movL1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                movL1MouseDragged(evt);
+            }
+        });
+        movL1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                movL1MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                movL1MouseReleased(evt);
+            }
+        });
         getContentPane().add(movL1);
-        movL1.setBounds(670, 560, 34, 40);
+        movL1.setBounds(670, 560, 30, 40);
 
-        movL2.setText("jLabel3");
+        movL2.setText("  ");
         movL2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 movL2MouseDragged(evt);
@@ -474,27 +506,93 @@ public class Tablero extends javax.swing.JFrame {
             }
         });
         getContentPane().add(movL2);
-        movL2.setBounds(130, 560, 34, 40);
+        movL2.setBounds(130, 560, 30, 40);
 
-        movL3.setText("jLabel3");
+        movL3.setText("  ");
+        movL3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                movL3MouseDragged(evt);
+            }
+        });
+        movL3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                movL3MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                movL3MouseReleased(evt);
+            }
+        });
         getContentPane().add(movL3);
-        movL3.setBounds(220, 560, 34, 40);
+        movL3.setBounds(220, 560, 30, 40);
 
-        movL4.setText("jLabel3");
+        movL4.setText("  ");
+        movL4.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                movL4MouseDragged(evt);
+            }
+        });
+        movL4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                movL4MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                movL4MouseReleased(evt);
+            }
+        });
         getContentPane().add(movL4);
-        movL4.setBounds(310, 560, 34, 40);
+        movL4.setBounds(310, 560, 30, 40);
 
-        movL5.setText("jLabel3");
+        movL5.setText("  ");
+        movL5.setToolTipText("");
+        movL5.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                movL5MouseDragged(evt);
+            }
+        });
+        movL5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                movL5MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                movL5MouseReleased(evt);
+            }
+        });
         getContentPane().add(movL5);
-        movL5.setBounds(400, 560, 34, 40);
+        movL5.setBounds(400, 560, 30, 40);
 
-        movL6.setText("jLabel3");
+        movL6.setText("  ");
+        movL6.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                movL6MouseDragged(evt);
+            }
+        });
+        movL6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                movL6MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                movL6MouseReleased(evt);
+            }
+        });
         getContentPane().add(movL6);
-        movL6.setBounds(490, 560, 34, 40);
+        movL6.setBounds(490, 560, 30, 40);
 
-        movL7.setText("jLabel3");
+        movL7.setText("  ");
+        movL7.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                movL7MouseDragged(evt);
+            }
+        });
+        movL7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                movL7MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                movL7MouseReleased(evt);
+            }
+        });
         getContentPane().add(movL7);
-        movL7.setBounds(580, 560, 34, 40);
+        movL7.setBounds(580, 560, 30, 40);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -505,6 +603,8 @@ public class Tablero extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        jugadorInicial.setPunteo(punteo+jugadorInicial.getPunteo());
+        punteo=0;
         jugadorInicial = jugadorInicial.getSiguiente();
         Jugador.setText(jugadorInicial.getValor());    
         
@@ -521,45 +621,66 @@ public class Tablero extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if(C1.isSelected()){
-        Fichas.offer(C1.getText());
+        Fichas.offer(C1.getText(),jugadorInicial.getLetras().buscarR(C1.getText()));
         jugadorInicial.getLetras().eliminarElemento(C1.getText());
-        jugadorInicial.getLetras().insertar(Fichas.peek());
+        ArrayList Valores = Fichas.peek();
+        String valor = Valores.get(0).toString();
+        int punteo=Integer.parseInt(Valores.get(1)+"");
+        jugadorInicial.getLetras().insertarMano(valor,punteo);
         C1.setSelected(false);
         }                
         if(C2.isSelected()){
-        Fichas.offer(C2.getText());
+          Fichas.offer(C2.getText(),jugadorInicial.getLetras().buscarR(C2.getText()));
         jugadorInicial.getLetras().eliminarElemento(C2.getText());
-        jugadorInicial.getLetras().insertar(Fichas.peek());
+         ArrayList Valores = Fichas.peek();
+        String valor = Valores.get(0).toString();
+        int punteo=Integer.parseInt(Valores.get(1)+"");
+        jugadorInicial.getLetras().insertarMano(valor,punteo);
         C2.setSelected(false);
         }
         if(C3.isSelected()){
-        Fichas.offer(C3.getText());
+        Fichas.offer(C3.getText(),jugadorInicial.getLetras().buscarR(C3.getText()));
         jugadorInicial.getLetras().eliminarElemento(C3.getText());
-        jugadorInicial.getLetras().insertar(Fichas.peek());
+         ArrayList Valores = Fichas.peek();
+        String valor = Valores.get(0).toString();
+        int punteo=Integer.parseInt(Valores.get(1)+"");
+        jugadorInicial.getLetras().insertarMano(valor,punteo);
         C3.setSelected(false);
         }
         if(C4.isSelected()){
-        Fichas.offer(C4.getText());
+        Fichas.offer(C4.getText(),jugadorInicial.getLetras().buscarR(C4.getText()));
         jugadorInicial.getLetras().eliminarElemento(C4.getText());
-        jugadorInicial.getLetras().insertar(Fichas.peek());
+         ArrayList Valores = Fichas.peek();
+        String valor = Valores.get(0).toString();
+        int punteo=Integer.parseInt(Valores.get(1)+"");
+        jugadorInicial.getLetras().insertarMano(valor,punteo);
         C4.setSelected(false);
         }
         if(C5.isSelected()){
-        Fichas.offer(C5.getText());
+        Fichas.offer(C5.getText(),jugadorInicial.getLetras().buscarR(C5.getText()));
         jugadorInicial.getLetras().eliminarElemento(C5.getText());
-        jugadorInicial.getLetras().insertar(Fichas.peek());
+         ArrayList Valores = Fichas.peek();
+        String valor = Valores.get(0).toString();
+        int punteo=Integer.parseInt(Valores.get(1)+"");
+        jugadorInicial.getLetras().insertarMano(valor,punteo);
         C5.setSelected(false);
         }
         if(C6.isSelected()){
-        Fichas.offer(C1.getText());
+        Fichas.offer(C6.getText(),jugadorInicial.getLetras().buscarR(C6.getText()));
         jugadorInicial.getLetras().eliminarElemento(C6.getText());
-        jugadorInicial.getLetras().insertar(Fichas.peek());
+         ArrayList Valores = Fichas.peek();
+        String valor = Valores.get(0).toString();
+        int punteo=Integer.parseInt(Valores.get(1)+"");
+        jugadorInicial.getLetras().insertarMano(valor,punteo);
         C6.setSelected(false);
         }
         if(C7.isSelected()){
-        Fichas.offer(C7.getText());
+        Fichas.offer(C7.getText(),jugadorInicial.getLetras().buscarR(C7.getText()));
         jugadorInicial.getLetras().eliminarElemento(C7.getText());
-        jugadorInicial.getLetras().insertar(Fichas.peek());
+        ArrayList Valores = Fichas.peek();
+        String valor = Valores.get(0).toString();
+        int punteo=Integer.parseInt(Valores.get(1)+"");
+        jugadorInicial.getLetras().insertarMano(valor,punteo);
         C7.setSelected(false);
         }
         actualizar();
@@ -587,27 +708,218 @@ public class Tablero extends javax.swing.JFrame {
 
     private void movL2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL2MouseDragged
         // TODO add your handling code here:
+        if(movL2.isEnabled()){
         L1.setLocation(x_b+evt.getX(),y_b+evt.getY());
+        }
     }//GEN-LAST:event_movL2MouseDragged
 
     private void movL2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL2MouseReleased
         // TODO add your handling code here:
-        System.out.println(L1.getX()+"_"+L1.getY());
-        System.out.println(tab.getCabeza().getDerecha().getCasilla().getX()+"_"+tab.getCabeza().getDerecha().getCasilla().getY());
+        Nodo_Matriz casillaActual = tab.buscarCasilla(L1.getX(), L1.getY(), dim);
+        casillaActual.getCasilla().setText(L1.getText());
+        casillasJuego.insertarJuego(casillaActual);
+        punteo=punteo+((jugadorInicial.getLetras().buscarR(L1.getText()))*casillaActual.getValor());
+        System.out.println("puntos:"+punteo);
+        L1.setVisible(false);
+        movL2.setEnabled(false);        
+        movL2.setText("deshabilitado");
+        
     }//GEN-LAST:event_movL2MouseReleased
 
     private void movL2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL2MousePressed
         // TODO add your handling code here:
         x_b=L1.getX();
-        y_b=L1.getY();
-        
-        //L1.setBounds(evt.getX(),evt.getY(), L1.getWidth(), L1.getHeight());
+        y_b=L1.getY();                
     }//GEN-LAST:event_movL2MousePressed
 
-    /**
-     * @param args the command line arguments
-     */
-  
+    private void movL3MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL3MouseDragged
+        // TODO add your handling code here:
+        if(movL3.isEnabled()){
+         L2.setLocation(x_b+evt.getX(),y_b+evt.getY());
+        }
+    }//GEN-LAST:event_movL3MouseDragged
+
+    private void movL3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL3MousePressed
+        // TODO add your handling code here:
+         x_b=L2.getX();
+         y_b=L2.getY();
+    }//GEN-LAST:event_movL3MousePressed
+
+    private void movL4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL4MousePressed
+        // TODO add your handling code here:
+        x_b=L3.getX();
+        y_b=L3.getY();
+    }//GEN-LAST:event_movL4MousePressed
+
+    private void movL4MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL4MouseDragged
+        // TODO add your handling code here:
+     if(movL4.isEnabled()){
+        L3.setLocation(x_b+evt.getX(),y_b+evt.getY());
+    }
+    }//GEN-LAST:event_movL4MouseDragged
+
+    private void movL5MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL5MouseDragged
+        // TODO add your handling code here:
+        if(movL5.isEnabled()){
+        L4.setLocation(x_b+evt.getX(),y_b+evt.getY());
+        }
+    }//GEN-LAST:event_movL5MouseDragged
+
+    private void movL5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL5MouseReleased
+        // TODO add your handling code here:
+        Nodo_Matriz casillaActual =tab.buscarCasilla(L4.getX(), L4.getY(), dim);
+        casillaActual.getCasilla().setText(L4.getText());
+        casillasJuego.insertarJuego(casillaActual);
+        punteo=punteo+((jugadorInicial.getLetras().buscarR(L4.getText()))*casillaActual.getValor());
+        System.out.println("puntos:"+punteo);
+        L4.setVisible(false);
+        movL5.setEnabled(false);        
+        movL5.setText("deshabilitado");
+    }//GEN-LAST:event_movL5MouseReleased
+
+    private void movL5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL5MousePressed
+        // TODO add your handling code here:
+        x_b=L4.getX();
+        y_b=L4.getY();
+    }//GEN-LAST:event_movL5MousePressed
+
+    private void movL6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL6MousePressed
+        // TODO add your handling code here:
+        x_b=L5.getX();
+        y_b=L5.getY();
+    }//GEN-LAST:event_movL6MousePressed
+
+    private void movL6MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL6MouseDragged
+        // TODO add your handling code here:
+        if(movL6.isEnabled()){
+        L5.setLocation(x_b+evt.getX(),y_b+evt.getY());
+        }
+    }//GEN-LAST:event_movL6MouseDragged
+
+    private void movL7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL7MouseDragged
+        // TODO add your handling code here:
+        if(movL7.isEnabled()){
+        L6.setLocation(x_b+evt.getX(),y_b+evt.getY());
+        }
+    }//GEN-LAST:event_movL7MouseDragged
+
+    private void movL7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL7MousePressed
+        // TODO add your handling code here:
+        x_b=L6.getX();
+        y_b=L6.getY();
+    }//GEN-LAST:event_movL7MousePressed
+
+    private void movL1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL1MousePressed
+        // TODO add your handling code here:
+        x_b=L7.getX();
+        y_b=L7.getY();
+    }//GEN-LAST:event_movL1MousePressed
+
+    private void movL1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL1MouseDragged
+        // TODO add your handling code here:
+        if(movL1.isEnabled()){
+         L7.setLocation(x_b+evt.getX(),y_b+evt.getY());
+        }
+    }//GEN-LAST:event_movL1MouseDragged
+
+    private void movL3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL3MouseReleased
+        // TODO add your handling code here:
+        Nodo_Matriz casillaActual=tab.buscarCasilla(L2.getX(), L2.getY(), dim);
+        casillaActual.getCasilla().setText(L2.getText());
+        casillasJuego.insertarJuego(casillaActual);
+        punteo=punteo+((jugadorInicial.getLetras().buscarR(L2.getText()))*casillaActual.getValor());
+        System.out.println("puntos:"+punteo);
+        L2.setVisible(false);
+        movL3.setEnabled(false);        
+        movL3.setText("deshabilitado");
+    }//GEN-LAST:event_movL3MouseReleased
+
+    private void movL4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL4MouseReleased
+        // TODO add your handling code here:
+        Nodo_Matriz casillaActual=tab.buscarCasilla(L3.getX(), L3.getY(), dim);
+        casillaActual.getCasilla().setText(L3.getText());
+        casillasJuego.insertarJuego(casillaActual);
+        punteo=punteo+((jugadorInicial.getLetras().buscarR(L3.getText()))*casillaActual.getValor());
+        System.out.println("puntos:"+punteo);
+        L3.setVisible(false);
+        movL4.setEnabled(false);        
+        movL4.setText("deshabilitado");
+    }//GEN-LAST:event_movL4MouseReleased
+
+    private void movL6MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL6MouseReleased
+        // TODO add your handling code here:
+        Nodo_Matriz casillaActual=tab.buscarCasilla(L5.getX(), L5.getY(), dim);
+        casillaActual.getCasilla().setText(L5.getText());
+        casillasJuego.insertarJuego(casillaActual);
+        punteo=punteo+((jugadorInicial.getLetras().buscarR(L5.getText()))*casillaActual.getValor());
+        System.out.println("puntos:"+punteo);
+        L5.setVisible(false);
+        movL6.setEnabled(false);        
+        movL6.setText("deshabilitado");
+    }//GEN-LAST:event_movL6MouseReleased
+
+    private void movL7MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL7MouseReleased
+        // TODO add your handling code here:
+        Nodo_Matriz casillaActual=tab.buscarCasilla(L6.getX(), L6.getY(), dim);
+        casillaActual.getCasilla().setText(L6.getText());
+        casillasJuego.insertarJuego(casillaActual);
+        punteo=punteo+((jugadorInicial.getLetras().buscarR(L6.getText()))*casillaActual.getValor());
+        System.out.println("puntos:"+punteo);
+        L6.setVisible(false);
+        movL7.setEnabled(false);        
+        movL7.setText("deshabilitado");
+    }//GEN-LAST:event_movL7MouseReleased
+
+    private void movL1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_movL1MouseReleased
+        // TODO add your handling code here:
+        Nodo_Matriz casillaActual=tab.buscarCasilla(L7.getX(), L7.getY(), dim);
+        casillaActual.getCasilla().setText(L7.getText());
+        casillasJuego.insertarJuego(casillaActual);
+        punteo=punteo+((jugadorInicial.getLetras().buscarR(L7.getText()))*casillaActual.getValor());
+        System.out.println("puntos:"+punteo);
+        L7.setVisible(false);
+        movL1.setEnabled(false);        
+        movL1.setText("deshabilitado");
+    }//GEN-LAST:event_movL1MouseReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        punteo=0;
+        L1.setLocation(70,560);
+        L2.setLocation(160,560);
+        L3.setLocation(250,560);
+        L4.setLocation(340,560);
+        L5.setLocation(430,560);
+        L6.setLocation(520,560);
+        L7.setLocation(610,560);
+        L1.setVisible(true);
+        L2.setVisible(true);
+        L3.setVisible(true);
+        L4.setVisible(true);
+        L5.setVisible(true);
+        L6.setVisible(true);
+        L7.setVisible(true);
+        movL1.setEnabled(true);
+        movL2.setEnabled(true);
+        movL3.setEnabled(true);
+        movL4.setEnabled(true);
+        movL5.setEnabled(true);
+        movL6.setEnabled(true);
+        movL7.setEnabled(true);
+        
+        casillasJuego.imprimirNodo();
+        System.out.println("eliminada:");
+        if (!casillasJuego.esVacia()) {
+            Nodo_Lista_Simple aux = casillasJuego.getInicio();
+            while(aux != null){
+                aux.getCasilla().getCasilla().setText("");
+                aux = aux.getSiguiente();
+            }
+        }
+           casillasJuego.eliminarLista();
+           casillasJuego.imprimirNodo();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox C1;

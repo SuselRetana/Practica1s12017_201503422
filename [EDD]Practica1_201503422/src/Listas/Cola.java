@@ -5,13 +5,16 @@
  */
 package Listas;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author freni_000
  */
 public class Cola {
     public class Nodo{
-        public String valor;
+       public String valor;
+       public int punteo;
        public Nodo siguiente;
     }
     private Nodo cabeza, fin;
@@ -33,9 +36,10 @@ public class Cola {
     public int tamaño(){
         return tamaño;
     }
-    public void offer(String valor){
+    public void offer(String valor, int punteo){
         Nodo nuevo = new Nodo();
         nuevo.valor=valor;
+        nuevo.punteo=punteo;
         nuevo.siguiente=null;
         if(esVacia()){
             cabeza=nuevo;
@@ -46,9 +50,11 @@ public class Cola {
         }
         tamaño++;
     }
-    public String peek(){
+    public ArrayList peek(){
         if(!esVacia()){
-            String valor= cabeza.valor;
+            ArrayList valor = new ArrayList();
+            valor.add(cabeza.valor);
+            valor.add(cabeza.punteo);            
             if(cabeza==fin){
                 cabeza=null;
                 fin=null;

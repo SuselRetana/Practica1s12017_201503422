@@ -15,7 +15,8 @@ import org.jdom.input.*;
  */
 public class XML {
     public int dimension;
-    public Lista_Simple casillas;
+    public Lista_Simple casillasDobles;
+    public Lista_Simple casillasTriples;
     public Lista_Simple diccionario;
     
     public void abrirArchivo(String Archivo) throws IOException{
@@ -32,7 +33,7 @@ public class XML {
             System.out.println("dimension: "+dimension);
         
 
-            casillas = new Lista_Simple();
+            casillasDobles = new Lista_Simple();
             //Casillas Dobles
             List casillasDobles = raiz.getChildren("dobles");
             Element casillaDoble = (Element) casillasDobles.get(0);
@@ -44,11 +45,12 @@ public class XML {
                 Element coordenada = (Element)coordenadasDoble.get( j );
                 String x = coordenada.getChildTextTrim("x");
                 String y = coordenada.getChildTextTrim("y");
-                casillas.insertar(x+","+y);               
+                this.casillasDobles.insertar(x+","+y);               
                 System.out.println(x+","+y);
             }
                 
                 System.out.println("Casillas Triples: ");
+                casillasTriples = new Lista_Simple();
             //Casillas Triples
             List casillasTriples = raiz.getChildren("triples");
             Element casillaTriple = (Element) casillasTriples.get(0);
@@ -59,7 +61,7 @@ public class XML {
                 Element coordenada = (Element)coordenadasTriple.get( j );
                 String x = coordenada.getChildTextTrim("x");
                 String y = coordenada.getChildTextTrim("y");
-                casillas.insertar(x+","+y);                
+                this.casillasTriples.insertar(x+","+y);                
                 System.out.println(x+","+y);
             }
             
@@ -75,7 +77,7 @@ public class XML {
             this.diccionario.insertar(palabra);
             System.out.println(palabra);                    
             }          
-            new Tablero(-1).enviarListaSimple(this.casillas, this.diccionario, this.dimension);
+            new Tablero(-1).enviarListaSimple(this.casillasTriples,this.casillasDobles, this.diccionario, this.dimension);
         }catch ( IOException io ) {
             System.out.println( io.getMessage() );
         }catch ( JDOMException jdomex ) {

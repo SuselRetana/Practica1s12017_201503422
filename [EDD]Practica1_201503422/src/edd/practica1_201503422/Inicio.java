@@ -146,8 +146,13 @@ public class Inicio extends javax.swing.JFrame {
         if(code!=null){
             if(jugadores.buscar(code)==false){
             Lista_Simple mano = new Lista_Simple();
+            
             for(int n = 0; n<7;n++){
-                mano.insertar(Abecedario.peek());
+                ArrayList valores = Abecedario.peek();
+                String valor =(String)valores.get(0);
+                String puntos=valores.get(1)+"";
+                int punteo = Integer.parseInt(puntos);
+                mano.insertarMano(valor,punteo);
             }
             jugadores.insertar(code, mano,0);   
             contJugadores++;
@@ -203,47 +208,47 @@ public class Inicio extends javax.swing.JFrame {
         letras = new ArrayList();
         for(int i=0;i<12;i++)
          {
-            letras.add("A");
-            letras.add("E");
+            letras.add("A,1");
+            letras.add("E,1");
           }
          for(int i=0;i<9;i++)
          {
-             letras.add("O");
+             letras.add("O,1");
          }
          for(int i=0; i<6;i++)
          {
-             letras.add("I");
-             letras.add("S");
+             letras.add("I,1");
+             letras.add("S,1");
          }
          for(int i=0;i<5;i++)
          {
-             letras.add("N");
-             letras.add("R");
-             letras.add("U");
-             letras.add("D");
+             letras.add("N,1");
+             letras.add("R,1");
+             letras.add("U,1");
+             letras.add("D,2");
          }
          for(int i=0;i<4;i++)
          {
-             letras.add("L");
-             letras.add("T");
-             letras.add("C");
+             letras.add("L,1");
+             letras.add("T,1");
+             letras.add("C,3");
          }
          for(int i=0;i<2;i++)
          {
-             letras.add("G");
-             letras.add("B");
-             letras.add("M");
-             letras.add("P");
-             letras.add("H");
+             letras.add("G,2");
+             letras.add("B,3");
+             letras.add("M,3");
+             letras.add("P,3");
+             letras.add("H,4");
          }
-         letras.add("F");
-         letras.add("V");
-         letras.add("Y");
-         letras.add("Q");
-         letras.add("J");
-         letras.add("Ñ");
-         letras.add("X");
-         letras.add("Z");
+         letras.add("F,4");
+         letras.add("V,4");
+         letras.add("Y,4");
+         letras.add("Q,5");
+         letras.add("J,8");
+         letras.add("Ñ,8");
+         letras.add("X,8");
+         letras.add("Z,1");
     }
     private void LetrasJuego(ArrayList letras)
     {
@@ -251,7 +256,7 @@ public class Inicio extends javax.swing.JFrame {
         for(int i=0 ;i<letras.size();i++)
         {
             rnd = (int) (Math.random()*letras.size());
-            Abecedario.offer((String) letras.get(rnd));            
+            Abecedario.offer(String.valueOf(letras.get(rnd).toString().charAt(0)),Integer.parseInt(String.valueOf(letras.get(rnd).toString().charAt(2))));               
         }
     }
     /**

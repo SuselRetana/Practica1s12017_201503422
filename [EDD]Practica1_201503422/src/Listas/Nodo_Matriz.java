@@ -12,7 +12,7 @@ import javax.swing.JButton;
  * @author freni_000
  */
 public class Nodo_Matriz {
-    private String valor;
+    private int valor;
     private int posX;
     private int posY;    
     private JButton casilla;
@@ -23,13 +23,13 @@ public class Nodo_Matriz {
     private Nodo_Matriz abajo;
 
      public void Nodo_Matriz(){
-        this.valor="";
+        this.valor=-1;
         this.derecha = null;    
         this.izquierda = null;    
         this.arriba = null;    
         this.abajo = null;    
     }
-    public String getValor(){
+    public int getValor(){
     return valor;
     }
      public int getX(){
@@ -69,7 +69,7 @@ public class Nodo_Matriz {
     }
     
     
-    public void  setValor(String valor){
+    public void  setValor(int valor){
     this.valor=valor;
     }
      public void  setCasilla(JButton casilla){

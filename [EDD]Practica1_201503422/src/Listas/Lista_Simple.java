@@ -39,6 +39,21 @@ public class Lista_Simple {
         }
         tamaño++;
     }
+    public void insertarMano(String valor, int punto){
+        Nodo_Lista_Simple nuevo = new Nodo_Lista_Simple();
+        nuevo.setValor(valor);
+        nuevo.setPuntos(punto);
+         if(esVacia()){
+            inicio=nuevo;
+        }else{
+            Nodo_Lista_Simple aux = inicio;
+         while(aux.getSiguiente()!=null)  {
+             aux=aux.getSiguiente();
+         }          
+            aux.setSiguiente(nuevo);
+        }
+        tamaño++;
+    }
     public void insertarJuego(Nodo_Matriz valor){
         Nodo_Lista_Simple nuevo = new Nodo_Lista_Simple();
         nuevo.setCasilla(valor);
@@ -57,7 +72,7 @@ public class Lista_Simple {
         Nodo_Lista_Simple aux= inicio;
         boolean encontrado=false;
         while(aux!=null && encontrado!=true){
-            if(referencia==aux.getValor()){
+            if(referencia.equalsIgnoreCase(aux.getValor())){
                 encontrado=true;
             }else{
                 aux=aux.getSiguiente();
@@ -65,6 +80,19 @@ public class Lista_Simple {
         }
         return encontrado;
     }
+      public int buscarR(String referencia){
+        Nodo_Lista_Simple aux= inicio;
+        boolean encontrado=false;
+        while(aux!=null && encontrado!=true){
+            if(referencia==aux.getValor()){
+                encontrado=true;
+            }else{
+                aux=aux.getSiguiente();
+            }
+        }
+        return aux.getPunto();
+    }
+    
     public void eliminarLista(){
         inicio = null;
         tamaño = 0;

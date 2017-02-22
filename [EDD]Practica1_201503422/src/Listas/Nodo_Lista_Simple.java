@@ -11,6 +11,7 @@ package Listas;
  */
 public class Nodo_Lista_Simple {
     private String valor;
+    private int puntos;
     private Nodo_Lista_Simple siguiente;
     private Nodo_Matriz casilla;
     public void Nodo_Lista_Simple(){
@@ -19,6 +20,9 @@ public class Nodo_Lista_Simple {
     }
     public String getValor(){
     return valor;
+    }
+    public int getPunto(){
+    return puntos;
     }
     public Nodo_Matriz getCasilla(){
     return casilla;
@@ -31,6 +35,9 @@ public class Nodo_Lista_Simple {
     }
      public void  setValor(String valor){
     this.valor=valor;
+    }
+     public void  setPuntos(int valor){
+    this.puntos=valor;
     }
       public void  setCasilla(Nodo_Matriz valor){
     this.casilla=valor;
