@@ -114,6 +114,9 @@ public class Tablero extends javax.swing.JFrame {
             fichas.repaint();
             rDicc.setIcon(new ImageIcon(r.diccionario(diccionario).getImage().getScaledInstance(fichas.getWidth(), fichas.getHeight(), Image.SCALE_DEFAULT)));
             rDicc.repaint();
+            rTab.setIcon(new ImageIcon(r.Tablero(tab, dim).getImage().getScaledInstance(fichas.getWidth(), fichas.getHeight(), Image.SCALE_DEFAULT)));
+            rTab.repaint();
+            
     }
    
     @SuppressWarnings("unchecked")

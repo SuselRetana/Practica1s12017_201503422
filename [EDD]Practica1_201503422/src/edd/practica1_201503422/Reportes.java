@@ -162,4 +162,60 @@ public class Reportes {
             return null;
         }
     }
+     public ImageIcon Tablero(Matriz_Ortogonal m,int dim){
+        try {
+            String ruta = "C:\\Users\\freni_000\\Desktop\\Practica1EDD\\matriz.txt";
+            File archivo = new File(ruta);
+            BufferedWriter bw;
+            bw = new BufferedWriter(new FileWriter(archivo));
+            bw.write("digraph G {");
+            Nodo_Matriz auxiliar;
+            int i=1;
+            String palabra;
+            for(int posy=0; posy<dim; posy++){
+                auxiliar = m.buscarPosicion(0,posy,dim);
+                for(int posx=0; posx<dim; posx++){
+                    palabra=auxiliar.getX()+","+auxiliar.getY();
+                    if(palabra.equals("")){
+                        palabra="\"\"";
+                    }
+                    bw.write(i+"[label="+i+"] ");
+                    auxiliar=auxiliar.getDerecha();
+                    i++;
+                }
+            }
+            i=1;
+            for(int posy=0; posy<dim; posy++)
+            {
+                for(int posx=0; posx<dim; posx++)
+                {
+                    if(posx!=dim-1)
+                    {
+                        bw.write(i+"->"+String.valueOf(i+1)+" ");
+                    }
+                    if(posx>0)
+                    {
+                        bw.write(i+"->"+String.valueOf(i-1)+" ");
+                    }
+                    if(posy!=dim-1)
+                    {
+                        bw.write(i+"->"+String.valueOf(i+dim)+" ");
+                    }
+                    if(posy>0)
+                    {
+                        bw.write(i+"->"+String.valueOf(i-dim)+" ");
+                    }
+                    i++;
+                }
+            }
+            bw.write("}");
+            bw.close();
+             ImageIcon img = new ImageIcon();
+            img=crear("matriz");
+            return (img);             
+        } catch (IOException ex) {
+            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+     }
 }
