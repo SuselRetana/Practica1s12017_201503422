@@ -9,7 +9,9 @@ import Listas.*;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import javax.swing.table.TableColumn;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.PLAIN_MESSAGE;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
@@ -603,15 +605,117 @@ public class Tablero extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        String Palabra = "";
+        boolean horizontal =false;
+        boolean vertical =false;
+        Nodo_Lista_Simple inicial = casillasJuego.getInicio();
+        int x=inicial.getCasilla().getX();
+        int y=inicial.getCasilla().getY();
+        int Xo=x;
+        int Yo=y;
+        for(int i = 0; i<casillasJuego.getTamaño();i++){
+            if(Xo>inicial.getCasilla().getX()){
+                Xo=inicial.getCasilla().getX();
+            }
+            if(inicial.getCasilla().getX()==x){
+                vertical=true;
+                inicial=inicial.getSiguiente();
+            }else{
+                vertical=false;
+                x=-1;
+            }
+        }
+         inicial = casillasJuego.getInicio();            
+        for(int i = 0; i<casillasJuego.getTamaño();i++){
+            if(Yo>inicial.getCasilla().getY()){
+                Yo=inicial.getCasilla().getY();
+            }
+            if(inicial.getCasilla().getY()==y){
+                horizontal=true;
+                inicial=inicial.getSiguiente();
+            }else{
+                horizontal=false;
+                 y=-1;
+            }
+        }
+        
+        if(vertical==true){
+        Nodo_Matriz inicio = tab.buscarPosicion(Xo, Yo, dim);                
+        if(inicio.getArriba().getCasilla().getText()==""){
+            if(diccionario.buscar(palabraVer(inicio))){
+                validada();
+            }else{
+                JOptionPane.showMessageDialog(null,"Tiro No Válido");
+                cancelar();
+            }
+        }else{
+            do{
+            inicio=inicio.getArriba();
+            }while(inicio.getCasilla().getText()!="");
+            if(diccionario.buscar(palabraVer(inicio))){
+                validada();
+            }else{
+                JOptionPane.showMessageDialog(null,"Tiro No Válido");
+                cancelar();
+            }
+        }
+        
+        
+        }else if(horizontal==true){
+         Nodo_Matriz inicio = tab.buscarPosicion(Xo, Yo, dim);                
+        if(inicio.getIzquierda().getCasilla().getText()==""){            
+            if(diccionario.buscar(palabraHor(inicio))){
+                validada();
+            }else{
+                JOptionPane.showMessageDialog(null,"Tiro No Válido");
+                cancelar();
+            }
+        }else{
+          do{
+            inicio=inicio.getIzquierda();
+            }while(inicio.getCasilla().getText()!="");
+            if(diccionario.buscar(palabraHor(inicio))){
+                validada();
+            }else{
+                JOptionPane.showMessageDialog(null,"Tiro No Válido");
+                cancelar();
+            }
+        }                             
+        }  else{
+            JOptionPane.showMessageDialog(null,"Tiro No Válido");
+            cancelar();
+        }  
+    }//GEN-LAST:event_jButton4ActionPerformed
+    public String palabraVer(Nodo_Matriz inicio){
+        String Palabra="";
+            do{
+                Palabra=Palabra+inicio.getCasilla().getText();
+                inicio=inicio.getAbajo();                
+            }while(inicio.getCasilla().getText()!="" && inicio.getAbajo()!=null);
+            Palabra=Palabra+inicio.getCasilla().getText();          
+            System.out.println(Palabra);
+            return Palabra;
+    }
+    public String palabraHor(Nodo_Matriz inicio){        
+        String Palabra="";
+         do{
+                Palabra=Palabra+inicio.getCasilla().getText();
+                inicio=inicio.getDerecha();                
+            }while(inicio.getCasilla().getText()!=""&& inicio.getDerecha()!=null);
+            Palabra=Palabra+inicio.getCasilla().getText();        
+            System.out.println(Palabra);            
+        return Palabra;
+    }
+    public void validada(){
+        casillasJuego.eliminarLista();
+        System.out.println("palabra valida");
         jugadorInicial.setPunteo(punteo+jugadorInicial.getPunteo());
         punteo=0;
         jugadorInicial = jugadorInicial.getSiguiente();
         Jugador.setText(jugadorInicial.getValor());    
-        
+        cancelar();
         actualizar();
-                
-    }//GEN-LAST:event_jButton4ActionPerformed
-
+}
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         diccionario.insertar(PalabraNew.getText());
@@ -683,6 +787,10 @@ public class Tablero extends javax.swing.JFrame {
         jugadorInicial.getLetras().insertarMano(valor,punteo);
         C7.setSelected(false);
         }
+        punteo=0;
+        jugadorInicial = jugadorInicial.getSiguiente();
+        Jugador.setText(jugadorInicial.getValor());     
+        cancelar();
         actualizar();
         System.out.println("_"+Fichas.tamaño()+"_");
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -883,8 +991,11 @@ public class Tablero extends javax.swing.JFrame {
     }//GEN-LAST:event_movL1MouseReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        punteo=0;
+        cancelar();
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+public void cancelar(){
+punteo=0;
         L1.setLocation(70,560);
         L2.setLocation(160,560);
         L3.setLocation(250,560);
@@ -918,8 +1029,7 @@ public class Tablero extends javax.swing.JFrame {
         }
            casillasJuego.eliminarLista();
            casillasJuego.imprimirNodo();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox C1;
