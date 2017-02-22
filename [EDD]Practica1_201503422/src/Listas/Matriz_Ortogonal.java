@@ -5,26 +5,35 @@
  */
 package Listas;
 
+import javax.swing.JButton;
+
 /**
  *
  * @author freni_000
  */
 public class Matriz_Ortogonal {
+        private JButton boton;
         private Nodo_Matriz inicio;
         private int tamaño;
     public void Matriz_Ortogonal(){
         inicio=null;
         tamaño=0;    
     }
-   
-    public void insertar(int dim){ //Le envias la dimension, lo que hace el método es solo crear las "casillas"
+   public Nodo_Matriz getCabeza(){
+   return inicio;
+   }
+    public void crear(int dim, int alto, int ancho){         
+        int altoB=alto/dim;
+        int anchoB=ancho/dim;
         for (int posY=0 ; posY<dim ; posY++){ //Recorre las filas
              for (int posX=0 ; posX<dim ; posX++){ //recorre columnas
                  Nodo_Matriz nuevo = new Nodo_Matriz(); //crea el nodo
+                 boton = new JButton();                 
                  nuevo.setX(posX); //trabaje con posiciones
-                 nuevo.setY(posY);
-                 nuevo.setValor(posX + ","+posY);
-                 if(posX==0 && posY==0){ // la "Cabeza" que decía Koca (Sí solo es una!)
+                 nuevo.setY(posY); 
+                 boton.setBounds(posX*(altoB), posY*(anchoB), altoB, anchoB);
+                 nuevo.setCasilla(boton);
+                 if(posX==0 && posY==0){ 
                  inicio=nuevo;
                  }else{
                      Nodo_Matriz aux=null;
@@ -87,4 +96,27 @@ public class Matriz_Ortogonal {
             aux1=aux;
     }
       }
+       public Nodo_Matriz buscarCasilla(int X, int Y, int dim){ //buscar nodo por posicion (podes usar este metodo, para obtener datos, insertar dato en el nodo, etc.)
+        
+        Nodo_Matriz aux= inicio;
+        boolean encontrado=false;
+        
+        for (int posY=0 ; posY<dim; posY++){
+            if(Y>=aux.getCasilla().getY()-10 && Y<=aux.getCasilla().getY()+10){
+             for (int posX=0 ; posX<dim; posX++){
+                 if(X>=aux.getCasilla().getX()-20 && X<=aux.getCasilla().getX()+20){
+                     posX=dim+1;
+                     posY=dim+1;
+                     encontrado=true;
+                 }
+                 if(encontrado==false){
+                 aux=aux.getDerecha();            
+                 }
+                }                  
+            }else{
+                aux=aux.getAbajo();
+            }            
+        }
+        return aux;
+    }
 }    

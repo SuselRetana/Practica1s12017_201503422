@@ -5,7 +5,7 @@
  */
 package Listas;
 
-import javax.swing.JTextField;
+import javax.swing.JButton;
 
 /**
  *
@@ -15,7 +15,7 @@ public class Nodo_Matriz {
     private String valor;
     private int posX;
     private int posY;    
-    private JTextField casilla;
+    private JButton casilla;
    
     private Nodo_Matriz derecha;
     private Nodo_Matriz izquierda;
@@ -38,7 +38,7 @@ public class Nodo_Matriz {
       public int getY(){
     return posY;
     }
-    public JTextField getCasilla(){
+    public JButton getCasilla(){
     return casilla;
     }
     
@@ -72,7 +72,7 @@ public class Nodo_Matriz {
     public void  setValor(String valor){
     this.valor=valor;
     }
-     public void  setCasilla(JTextField casilla){
+     public void  setCasilla(JButton casilla){
     this.casilla=casilla;
     }
     public void  setX(int X){

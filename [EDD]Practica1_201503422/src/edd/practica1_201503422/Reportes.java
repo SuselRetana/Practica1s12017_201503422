@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -19,9 +20,8 @@ import java.util.logging.Logger;
  */
 public class Reportes {
     //C:\Program Files (x86)\Graphviz2.38\bin\dot.exe
-    private void crear(String nombre)
-    {
-        
+    private ImageIcon crear(String nombre)
+    {                
          try {
       
           String dotPath = "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe";
@@ -41,13 +41,16 @@ public class Reportes {
 
           Runtime rt = Runtime.getRuntime();
           rt.exec( cmd );
-      
+       ImageIcon Img;
+             return (Img = new ImageIcon(fileOutputPath)); 
     } catch (Exception ex) {
       ex.printStackTrace();
+      return null;
     } finally {
+            
     }
     }
-    public void Jugadores(Lista_Circular jugador){
+    public ImageIcon Jugadores(Lista_Circular jugador){
         try {
             String ruta = "C:\\Users\\freni_000\\Desktop\\Practica1EDD\\jugadores.txt";
             File archivo = new File(ruta);
@@ -62,12 +65,15 @@ public class Reportes {
             }while(inicio!=jugador.getInicio());            
             bw.write("}");
             bw.close();
-            crear("jugadores");
+            ImageIcon img = new ImageIcon();
+            img=crear("jugadores");
+            return (img);
         } catch (IOException ex) {
             Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            return (null);
+        }        
     }
-     public void Mano(Lista_Simple mano, String jugador){
+     public ImageIcon Mano(Lista_Simple mano, String jugador){
         try {
             String ruta = "C:\\Users\\freni_000\\Desktop\\Practica1EDD\\mano.txt";
             File archivo = new File(ruta);
@@ -83,18 +89,24 @@ public class Reportes {
                 inicio=inicio.getSiguiente();
                 i++;
             }
+            bw.write(i+"[label="+inicio.getValor()+"] ");
+                inicio=inicio.getSiguiente();
+                i++;
             bw.write(jugador +"->"+0+" ");
             for (int j =0; j<i-1;j++){
                     bw.write(j+"->"+(j+1)+" ");
             }
             bw.write("}");
             bw.close();
-            crear("mano");
+             ImageIcon img = new ImageIcon();
+            img=crear("mano");
+            return (img);
         } catch (IOException ex) {
             Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
-    public void diccionario(Lista_Simple diccionario){
+    public ImageIcon diccionario(Lista_Simple diccionario){
         try {
             String ruta = "C:\\Users\\freni_000\\Desktop\\Practica1EDD\\diccionario.txt";
             File archivo = new File(ruta);
@@ -114,12 +126,15 @@ public class Reportes {
             }
             bw.write("}");
             bw.close();
-            crear("diccionario");
+            ImageIcon img = new ImageIcon();
+            img=crear("diccionario");
+            return (img);            
         } catch (IOException ex) {
             Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
-     public void TotalFichas(Cola ficha){
+     public ImageIcon TotalFichas(Cola ficha){
         try {
             Cola prueba=ficha;
             Cola.Nodo recorrido=prueba.getCabeza();
@@ -139,9 +154,12 @@ public class Reportes {
             }
             bw.write("}");
             bw.close();
-            crear("fichas");
+            ImageIcon img = new ImageIcon();
+            img=crear("fichas");
+            return (img);        
         } catch (IOException ex) {
             Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 }

@@ -165,8 +165,9 @@ public class Inicio extends javax.swing.JFrame {
         jugadores.imprimir();
         this.setVisible(false);
         new Reportes().Jugadores(jugadores);
-        Tablero t = new Tablero();
+        Tablero t = new Tablero(0);
         t.enviarJugadores(jugadores, Abecedario);
+        t.actualizar();
           /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

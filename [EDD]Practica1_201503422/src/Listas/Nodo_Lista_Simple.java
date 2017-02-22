@@ -12,13 +12,16 @@ package Listas;
 public class Nodo_Lista_Simple {
     private String valor;
     private Nodo_Lista_Simple siguiente;
-    
+    private Nodo_Matriz casilla;
     public void Nodo_Lista_Simple(){
         this.valor="";
         this.siguiente = null;    
     }
     public String getValor(){
     return valor;
+    }
+    public Nodo_Matriz getCasilla(){
+    return casilla;
     }
     public Nodo_Lista_Simple getSiguiente(){
     return siguiente;
@@ -28,5 +31,8 @@ public class Nodo_Lista_Simple {
     }
      public void  setValor(String valor){
     this.valor=valor;
+    }
+      public void  setCasilla(Nodo_Matriz valor){
+    this.casilla=valor;
     }
 }

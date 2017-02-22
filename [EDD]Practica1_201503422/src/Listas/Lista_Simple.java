@@ -39,6 +39,20 @@ public class Lista_Simple {
         }
         tamaño++;
     }
+    public void insertarJuego(Nodo_Matriz valor){
+        Nodo_Lista_Simple nuevo = new Nodo_Lista_Simple();
+        nuevo.setCasilla(valor);
+         if(esVacia()){
+            inicio=nuevo;
+        }else{
+            Nodo_Lista_Simple aux = inicio;
+         while(aux.getSiguiente()!=null)  {
+             aux=aux.getSiguiente();
+         }          
+            aux.setSiguiente(nuevo);
+        }
+        tamaño++;
+    }
     public boolean buscar(String referencia){
         Nodo_Lista_Simple aux= inicio;
         boolean encontrado=false;
@@ -66,6 +80,18 @@ public class Lista_Simple {
             }
         }
     }
+    public void imprimirNodo(){
+        if (!esVacia()) {
+            Nodo_Lista_Simple aux = inicio;
+            int posicion = 0;
+            while(aux != null){
+                System.out.print(posicion + ".[ " + aux.getCasilla().getX()+"_"+ aux.getCasilla().getY()+" ]" + " ->  ");
+                aux = aux.getSiguiente();
+                posicion++;
+            }
+        }
+    }
+    
     public void eliminarElemento(String referencia){
         if(buscar(referencia)){
             if(inicio.getValor()==referencia){
