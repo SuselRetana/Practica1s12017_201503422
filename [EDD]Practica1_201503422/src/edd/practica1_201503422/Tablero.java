@@ -706,13 +706,28 @@ public class Tablero extends javax.swing.JFrame {
             System.out.println(Palabra);            
         return Palabra;
     }
-    public void validada(){
-        casillasJuego.eliminarLista();
+    public void validada(){        
+        Nodo_Lista_Simple letra =casillasJuego.getInicio();
+        for(int i = 0; i<casillasJuego.getTamaño();i++){
+            jugadorInicial.getLetras().eliminarElemento(letra.getCasilla().getCasilla().getText());
+            letra=letra.getSiguiente();
+        }
+        for(int i = 0; i<casillasJuego.getTamaño();i++){
+         if(!Fichas.esVacia()){
+            ArrayList Valores = Fichas.peek();
+            String valor = Valores.get(0).toString();
+            int punteo=Integer.parseInt(Valores.get(1)+"");
+            jugadorInicial.getLetras().insertarMano(valor, punteo);
+         }else{
+              JOptionPane.showMessageDialog(null,"F I N - J U E G O");
+         }
+        }
         System.out.println("palabra valida");
         jugadorInicial.setPunteo(punteo+jugadorInicial.getPunteo());
-        punteo=0;
+        punteo=0;                
         jugadorInicial = jugadorInicial.getSiguiente();
         Jugador.setText(jugadorInicial.getValor());    
+        casillasJuego.eliminarLista();
         cancelar();
         actualizar();
 }
